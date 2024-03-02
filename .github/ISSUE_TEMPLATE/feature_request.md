@@ -1,20 +1,27 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+name: 機能追加・修正
+about: 機能追加・修正はこのテンプレートをご利用ください。
+title: タイトルをセットしてください。
+labels: enhancement
+assignees: tas5521
 ---
+<!-- Issueのテンプレートです。入力できるところを埋めてください。 -->
+<!-- 記入しない項目は特になしと記入してください。。 -->
+<!-- 追加、または修正する機能の概要を記述してください。 -->
+## 機能の概要
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!-- 実装について注意点があれば記載してください。 -->
+## 要検証事項、注意事項
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+<!-- 追加する機能がレイアウトに関わる場合は、キャプチャ等を添付してどのような画面を作成、または修正するのか記述してください。 -->
+## 画面の仕様
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+<!-- 何を達成すればこのIssueは完了なのかを、明確にしてください。 -->
+## タスク
+下記のタスクを達成すれば、Issueは完了です。
+- [ ] タスク1
+- [ ] タスク2
+- [ ] タスク3
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+<!-- 参考情報があれば記載してください。 -->
+## 参考情報
