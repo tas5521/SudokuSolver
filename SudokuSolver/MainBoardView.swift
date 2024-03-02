@@ -30,6 +30,7 @@ struct MainBoardView: View {
             ForEach(0...8, id: \.self) { row in
                 HStack(spacing: -1) {
                     ForEach(0...8, id: \.self) { column in
+                        // セル内の数字を取得
                         let number = sudoku[row][column]
                         Button {
                         } label: {
