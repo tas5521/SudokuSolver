@@ -20,4 +20,6 @@ enum ButtonType: Int {
     case seven = 7
     case eight = 8
     case nine = 9
+    case hint
+    case start
 } // ButtonType ここまで

@@ -20,7 +20,7 @@ struct MainBoardView: View {
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     
     // 選択されているボタンを管理する変数
-    @State private var selectedButton: ButtonType = .clear
+    @State private var selectedButton: ButtonType = .start
     
     var body: some View {
         NavigationStack {
@@ -47,8 +47,24 @@ struct MainBoardView: View {
                 // 数独の盤面を配置
                 board
                 Spacer()
+                // 数字ボタンを配置
                 numberButtons
                 Spacer()
+                HStack(spacing: 20) {
+                    undoButton
+                    clearButton
+                    clearAllButton
+                } // HStack ここまで
+                HStack(spacing: 20) {
+                    shareButton
+                    hintButton
+                    resetHintButton
+                } // HStack ここまで
+                HStack(spacing: 20) {
+                    saveButton
+                    listButton
+                    solveButton
+                } // HStack ここまで
             } // VStack ここまで
         } // NavigationStack
     } // body ここまで
@@ -105,6 +121,135 @@ struct MainBoardView: View {
             } // ForEachここまで
         } // HStack ここまで
     } // numberButtons ここまで
+    
+    // Undo（ひとつ前の状態に戻る）ボタン
+    private var undoButton: some View {
+        Button {
+            // TODO: Undo処理
+        } label: {
+            Text("Undo")
+                .frame(width: 80, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // undoButton ここまで
+    
+    // クリアボタン
+    private var clearButton: some View {
+        Button {
+            // Clearが選択されていることを保持
+            selectedButton = .clear
+        } label: {
+            Text("Clear")
+                .frame(width: 80, height: 32)
+                .background(selectedButton == .clear ?
+                            Color.buttonOrange : Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // clearButon ここまで
+    
+    // 全てクリアするボタン
+    private var clearAllButton: some View {
+        Button {
+            // TODO: 全てクリアする処理
+        } label: {
+            Text("Clear All")
+                .frame(width: 120, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // clearAllButtonここまで
+    
+    // 数独の盤面を保存するボタン
+    private var saveButton: some View {
+        Button {
+            // TODO: 数独の盤面を保存する処理
+        } label: {
+            Text("Save")
+                .frame(width: 80, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // saveButton ここまで
+    
+    // 数独リストを表示するボタン
+    private var listButton: some View {
+        Button {
+            // TODO: 数独リスト画面の表示
+        } label: {
+            Text("List")
+                .frame(width: 80, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // listButton ここまで
+    
+    // 数独を解くボタン
+    private var solveButton: some View {
+        Button {
+            
+        } label: {
+            Text("Solve")
+                .frame(width: 120, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // solveButton ここまで
+
+    // ヒントボタン
+    private var hintButton: some View {
+        Button {
+            selectedButton = .hint
+        } label: {
+            Text("Hint")
+                .frame(width: 80, height: 32)
+                .background(selectedButton == .hint ?
+                            Color.buttonOrange : Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // hintButton ここまで
+    
+    // 全てのヒントを解除するボタン
+    private var resetHintButton: some View {
+        Button {
+            // TODO: 全てのヒントを解除する
+        } label: {
+            Text("Reset Hint")
+                .frame(width: 120, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // resetHintButton ここまで
+    
+    // SNS等に数独の盤面をシェアするボタン
+    private var shareButton: some View {
+        Button {
+            // TODO: シェア機能
+        } label: {
+            Text("Share")
+                .frame(width: 80, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // shareButton ここまで
 } // MainBoardView ここまで
 
 #Preview {
