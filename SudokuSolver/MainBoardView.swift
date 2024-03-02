@@ -18,10 +18,14 @@ struct MainBoardView: View {
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
+    
+    // 選択されているボタンを管理する変数
+    @State private var selectedButton: ButtonType = .clear
+    
     var body: some View {
         NavigationStack {
             VStack {
+                Spacer()
                 HStack {
                     // タイトル
                     Text("Sudoku Solver")
@@ -33,17 +37,22 @@ struct MainBoardView: View {
                         // TODO: カメラ画面のViewを配置
                     } label: {
                         Image(systemName: "camera.fill")
+                            .foregroundStyle(Color.buttonBlue)
                             .scaleEffect(1.5)
                     } // NavigationLink ここまで
                 } // HStack ここまで
                 .padding(.leading, 15)
                 .padding(.trailing, 25)
+                Spacer()
                 // 数独の盤面を配置
                 board
+                Spacer()
+                numberButtons
+                Spacer()
             } // VStack ここまで
         } // NavigationStack
     } // body ここまで
-
+    
     // 数独の盤面
     private var board: some View {
         VStack(spacing: -1) {
@@ -58,7 +67,7 @@ struct MainBoardView: View {
                             Text(number == 0 ? "" : String(number))
                                 .frame(width: 40, height: 40)
                                 .border(Color.black, width: 1)
-                                // 背景色を白とグレーに分ける
+                            // 背景色を白とグレーに分ける
                                 .background(
                                     Group {
                                         if (row / 3 != 1 && column / 3 != 1) || (row / 3 == 1 && column / 3 == 1) {
@@ -76,6 +85,24 @@ struct MainBoardView: View {
             } // ForEach ここまで
         } // VStack ここまで
     } // board ここまで
+    
+    // 数字ボタン
+    private var numberButtons: some View {
+        HStack {
+            ForEach(1...9, id: \.self) { number in
+                Button {
+                    
+                } label: {
+                    Text("\(number)")
+                        .frame(width: 32, height: 32)
+                        .background(Color.buttonBlue)
+                        .cornerRadius(5)
+                        .foregroundColor(Color.white)
+                        .font(.title)
+                } // Button ここまで
+            } // ForEachここまで
+        } // HStack ここまで
+    } // numberButtons ここまで
 } // MainBoardView ここまで
 
 #Preview {

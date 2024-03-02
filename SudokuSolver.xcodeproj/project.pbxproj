@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A3BA9592B93427900A9A5A6 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BA9582B93427900A9A5A6 /* MainBoardView.swift */; };
+		4A3BA95B2B934BCB00A9A5A6 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BA95A2B934BCB00A9A5A6 /* ButtonType.swift */; };
 		4A7227762B92E238009E8C28 /* SudokuSolverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7227752B92E238009E8C28 /* SudokuSolverApp.swift */; };
 		4A72277A2B92E23B009E8C28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A7227792B92E23B009E8C28 /* Assets.xcassets */; };
 		4A72277D2B92E23B009E8C28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A72277C2B92E23B009E8C28 /* Preview Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		4A3BA9582B93427900A9A5A6 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
+		4A3BA95A2B934BCB00A9A5A6 /* ButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		4A7227722B92E238009E8C28 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A7227752B92E238009E8C28 /* SudokuSolverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolverApp.swift; sourceTree = "<group>"; };
 		4A7227792B92E23B009E8C28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				4A7227752B92E238009E8C28 /* SudokuSolverApp.swift */,
 				4A3BA9582B93427900A9A5A6 /* MainBoardView.swift */,
+				4A3BA95A2B934BCB00A9A5A6 /* ButtonType.swift */,
 				4A7227792B92E23B009E8C28 /* Assets.xcassets */,
 				4A72277E2B92E23B009E8C28 /* Persistence.swift */,
 				4A7227802B92E23B009E8C28 /* SudokuSolver.xcdatamodeld */,
@@ -143,7 +146,7 @@
 		4A3BA9572B933AD200A9A5A6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -154,7 +157,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint; then\n    swiftlint --fix --format\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A3BA95B2B934BCB00A9A5A6 /* ButtonType.swift in Sources */,
 				4A72277F2B92E23B009E8C28 /* Persistence.swift in Sources */,
 				4A3BA9592B93427900A9A5A6 /* MainBoardView.swift in Sources */,
 				4A7227762B92E238009E8C28 /* SudokuSolverApp.swift in Sources */,
