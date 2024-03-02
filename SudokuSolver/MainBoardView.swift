@@ -20,8 +20,28 @@ struct MainBoardView: View {
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     var body: some View {
-        // 数独の盤面を配置
-        board
+        NavigationStack {
+            VStack {
+                HStack {
+                    // タイトル
+                    Text("Sudoku Solver")
+                        .font(.largeTitle)
+                        .bold()
+                    Spacer()
+                    // カメラ画面の画面遷移
+                    NavigationLink {
+                        // TODO: カメラ画面のViewを配置
+                    } label: {
+                        Image(systemName: "camera.fill")
+                            .scaleEffect(1.5)
+                    } // NavigationLink ここまで
+                } // HStack ここまで
+                .padding(.leading, 15)
+                .padding(.trailing, 25)
+                // 数独の盤面を配置
+                board
+            } // VStack ここまで
+        } // NavigationStack
     } // body ここまで
 
     // 数独の盤面
