@@ -91,11 +91,13 @@ struct MainBoardView: View {
         HStack {
             ForEach(1...9, id: \.self) { number in
                 Button {
-                    
+                    // 選択された数字を保持
+                    selectedButton = ButtonType(rawValue: number) ?? .clear
                 } label: {
                     Text("\(number)")
                         .frame(width: 32, height: 32)
-                        .background(Color.buttonBlue)
+                        .background(selectedButton.rawValue == number ?
+                                    Color.buttonOrange : Color.buttonBlue)
                         .cornerRadius(5)
                         .foregroundColor(Color.white)
                         .font(.title)

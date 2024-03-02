@@ -10,6 +10,7 @@ import Foundation
 // ボタンの種類
 enum ButtonType: Int {
     // 列挙子
+    case clear = 0
     case one = 1
     case two = 2
     case three = 3
@@ -19,5 +20,4 @@ enum ButtonType: Int {
     case seven = 7
     case eight = 8
     case nine = 9
-    case clear = 0
 } // ButtonType ここまで
