@@ -252,7 +252,7 @@ struct MainBoardView: View {
                 .font(.title2)
         } // Button ここまで
         .sheet(isPresented: $isShowList) {
-            SudokuListView(isShowList: $isShowList)
+            SudokuListView(isShowList: $isShowList, viewModel: $viewModel)
         } // sheet ここまで
     } // listButton ここまで
     
