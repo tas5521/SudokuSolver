@@ -43,7 +43,7 @@ class MainBoardViewModel {
     } // enterToBoard ここまで
     
     // 現在の数独をスタックに格納するメソッド
-    func pushSudokuIntoStack() {
+    private func pushSudokuIntoStack() {
         sudokuStack.append(sudoku)
     } // pushIntoStackここまで
     
