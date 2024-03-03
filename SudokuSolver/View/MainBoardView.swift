@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct MainBoardView: View {
+    @Environment(\.managedObjectContext) private var context
     // View presentation
     // リスト画面の表示を管理する変数
     @State private var isShowList: Bool = false
+    // 数独を保存したことを伝えるメッセージの表示を管理すつ変数
+    @State private var isShowSaveMessage: Bool = false
     
     // ViewModel
     @State private var viewModel: MainBoardViewModel = MainBoardViewModel()
@@ -219,7 +222,10 @@ struct MainBoardView: View {
     // 数独の盤面を保存するボタン
     private var saveButton: some View {
         Button {
-            // TODO: 数独の盤面を保存する処理
+            // 数独の盤面を保存する処理
+            viewModel.saveSudoku(context: context)
+            // 数独を保存したことをユーザーに伝えるメッセージ
+            isShowSaveMessage.toggle()
         } label: {
             Text("Save")
                 .frame(width: 80, height: 32)
@@ -228,6 +234,9 @@ struct MainBoardView: View {
                 .foregroundColor(Color.white)
                 .font(.title2)
         } // Button ここまで
+        .alert(isPresented: $isShowSaveMessage) {
+            Alert(title: Text("数独をリストに保存しました。"))
+        } // alert ここまで
     } // saveButton ここまで
     
     // 数独リストを表示するボタン

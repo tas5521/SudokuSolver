@@ -13,9 +13,10 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+        for number in 0..<10 {
+            let sudokuData = SudokuData(context: viewContext)
+            sudokuData.date = Date()
+            sudokuData.sudoku = String(repeating: String(number), count: 81)
         }
         do {
             try viewContext.save()
