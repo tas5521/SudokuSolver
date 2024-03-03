@@ -45,18 +45,27 @@ struct MainBoardView: View {
                 numberButtons
                 Spacer()
                 HStack(spacing: 20) {
+                    // Undo（ひとつ前の状態に戻る）ボタンを配置
                     undoButton
+                    // クリアボタンを配置
                     clearButton
+                    // 全てクリアするボタンを配置
                     clearAllButton
                 } // HStack ここまで
                 HStack(spacing: 20) {
+                    // SNS等に数独の盤面をシェアするボタンを配置
                     shareButton
+                    // ヒントボタン
                     hintButton
+                    // 全てのヒントを解除するボタンを配置
                     resetHintButton
                 } // HStack ここまで
                 HStack(spacing: 20) {
+                    // 数独の盤面を保存するボタンを配置
                     saveButton
+                    // 数独リストを表示するボタンを配置
                     listButton
+                    // 数独を解くボタンを配置
                     solveButton
                 } // HStack ここまで
             } // VStack ここまで
@@ -163,6 +172,49 @@ struct MainBoardView: View {
         } // Button ここまで
     } // clearAllButtonここまで
     
+    // SNS等に数独の盤面をシェアするボタン
+    private var shareButton: some View {
+        Button {
+            // TODO: シェア機能
+        } label: {
+            Text("Share")
+                .frame(width: 80, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // shareButton ここまで
+    
+    // ヒントボタン
+    private var hintButton: some View {
+        Button {
+            viewModel.selectedButton = .hint
+        } label: {
+            Text("Hint")
+                .frame(width: 80, height: 32)
+                .background(viewModel.selectedButton == .hint ?
+                            Color.buttonOrange : Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // hintButton ここまで
+    
+    // 全てのヒントを解除するボタン
+    private var resetHintButton: some View {
+        Button {
+            // TODO: 全てのヒントを解除する
+        } label: {
+            Text("Reset Hint")
+                .frame(width: 120, height: 32)
+                .background(Color.buttonBlue)
+                .cornerRadius(5)
+                .foregroundColor(Color.white)
+                .font(.title2)
+        } // Button ここまで
+    } // resetHintButton ここまで
+    
     // 数独の盤面を保存するボタン
     private var saveButton: some View {
         Button {
@@ -207,49 +259,6 @@ struct MainBoardView: View {
                 .font(.title2)
         } // Button ここまで
     } // solveButton ここまで
-
-    // ヒントボタン
-    private var hintButton: some View {
-        Button {
-            viewModel.selectedButton = .hint
-        } label: {
-            Text("Hint")
-                .frame(width: 80, height: 32)
-                .background(viewModel.selectedButton == .hint ?
-                            Color.buttonOrange : Color.buttonBlue)
-                .cornerRadius(5)
-                .foregroundColor(Color.white)
-                .font(.title2)
-        } // Button ここまで
-    } // hintButton ここまで
-    
-    // 全てのヒントを解除するボタン
-    private var resetHintButton: some View {
-        Button {
-            // TODO: 全てのヒントを解除する
-        } label: {
-            Text("Reset Hint")
-                .frame(width: 120, height: 32)
-                .background(Color.buttonBlue)
-                .cornerRadius(5)
-                .foregroundColor(Color.white)
-                .font(.title2)
-        } // Button ここまで
-    } // resetHintButton ここまで
-    
-    // SNS等に数独の盤面をシェアするボタン
-    private var shareButton: some View {
-        Button {
-            // TODO: シェア機能
-        } label: {
-            Text("Share")
-                .frame(width: 80, height: 32)
-                .background(Color.buttonBlue)
-                .cornerRadius(5)
-                .foregroundColor(Color.white)
-                .font(.title2)
-        } // Button ここまで
-    } // shareButton ここまで
 } // MainBoardView ここまで
 
 #Preview {
