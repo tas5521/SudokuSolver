@@ -74,6 +74,7 @@ struct SudokuListView: View {
         } // if ここまで
     } // body ここまで
     
+    // 数独の盤面
     private func sudokuBoardView(board: [[Int]]) -> some View {
         VStack(spacing: -1) {
             ForEach(0..<9, id: \.self) { row in
