@@ -49,7 +49,7 @@ class MainBoardViewModel {
     
     // Undo（ひとつ前の盤面に戻す）を行うメソッド
     func undo() {
-        // スタックからpopして返却
+        // スタックからpop
         sudoku = sudokuStack.popLast() ?? emptySudoku
     } // undo ここまで
 } // MainBoardViewModel
