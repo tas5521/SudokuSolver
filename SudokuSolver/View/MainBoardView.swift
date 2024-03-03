@@ -12,19 +12,8 @@ struct MainBoardView: View {
     // リスト画面の表示を管理する変数
     @State private var isShowList: Bool = false
     
-    // 数独を管理する変数
-    @State private var sudoku: [[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                          [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    
-    // 選択されているボタンを管理する変数
-    @State private var selectedButton: ButtonType = .start
+    // ViewModel
+    @State private var viewModel: MainBoardViewModel = MainBoardViewModel()
     
     var body: some View {
         NavigationStack {
@@ -81,8 +70,10 @@ struct MainBoardView: View {
                 HStack(spacing: -1) {
                     ForEach(0...8, id: \.self) { column in
                         // セル内の数字を取得
-                        let number = sudoku[row][column]
+                        let number = viewModel.sudoku[row][column]
                         Button {
+                            // 選択されている数字を盤面に入力する
+                            viewModel.enterNumberOnBoard(row: row, column: column)
                         } label: {
                             // 0だったら表示しない
                             Text(number == 0 ? "" : String(number))
@@ -113,11 +104,11 @@ struct MainBoardView: View {
             ForEach(1...9, id: \.self) { number in
                 Button {
                     // 選択された数字を保持
-                    selectedButton = ButtonType(rawValue: number) ?? .clear
+                    viewModel.selectedButton = ButtonType(rawValue: number) ?? .clear
                 } label: {
                     Text("\(number)")
                         .frame(width: 32, height: 32)
-                        .background(selectedButton.rawValue == number ?
+                        .background(viewModel.selectedButton.rawValue == number ?
                                     Color.buttonOrange : Color.buttonBlue)
                         .cornerRadius(5)
                         .foregroundColor(Color.white)
@@ -145,11 +136,11 @@ struct MainBoardView: View {
     private var clearButton: some View {
         Button {
             // Clearが選択されていることを保持
-            selectedButton = .clear
+            viewModel.selectedButton = .clear
         } label: {
             Text("Clear")
                 .frame(width: 80, height: 32)
-                .background(selectedButton == .clear ?
+                .background(viewModel.selectedButton == .clear ?
                             Color.buttonOrange : Color.buttonBlue)
                 .cornerRadius(5)
                 .foregroundColor(Color.white)
@@ -188,7 +179,6 @@ struct MainBoardView: View {
     // 数独リストを表示するボタン
     private var listButton: some View {
         Button {
-            // TODO: 数独リスト画面の表示
             isShowList.toggle()
         } label: {
             Text("List")
@@ -220,11 +210,11 @@ struct MainBoardView: View {
     // ヒントボタン
     private var hintButton: some View {
         Button {
-            selectedButton = .hint
+            viewModel.selectedButton = .hint
         } label: {
             Text("Hint")
                 .frame(width: 80, height: 32)
-                .background(selectedButton == .hint ?
+                .background(viewModel.selectedButton == .hint ?
                             Color.buttonOrange : Color.buttonBlue)
                 .cornerRadius(5)
                 .foregroundColor(Color.white)
