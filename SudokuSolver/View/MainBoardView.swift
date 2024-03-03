@@ -72,6 +72,7 @@ struct MainBoardView: View {
                         // セル内の数字を取得
                         let number = viewModel.sudoku[row][column]
                         Button {
+                            // 選択されている数字を盤面に入力する
                             viewModel.enterNumberOnBoard(row: row, column: column)
                         } label: {
                             // 0だったら表示しない
