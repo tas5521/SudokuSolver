@@ -66,21 +66,4 @@ class MainBoardViewModel {
         // 現在の数独の状態に空の数独を渡す
         sudoku = emptySudoku
     } // clearAll ここまで
-    
-    // 現在の盤面を保存するメソッド
-    func saveSudoku(context: NSManagedObjectContext) {
-        // CoreDataのインスタンスを作成
-        let sudokuData = SudokuData(context: context)
-        // 数独を一次元の文字列に変換し、インスタンスに渡す
-        sudokuData.sudoku = sudoku.flatMap { $0 }.map { String($0) }.joined()
-        // 保存した日付をインスタンスに渡す
-        sudokuData.date = Date()
-        do {
-            // データを保存
-            try context.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        } // do-try-catch ここまで
-    } // saveSudoku ここまで
 } // MainBoardViewModel

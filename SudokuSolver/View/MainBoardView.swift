@@ -223,7 +223,7 @@ struct MainBoardView: View {
     private var saveButton: some View {
         Button {
             // 数独の盤面を保存する処理
-            viewModel.saveSudoku(context: context)
+            saveSudoku()
             // 数独を保存したことをユーザーに伝えるメッセージ
             isShowSaveMessage.toggle()
         } label: {
@@ -269,6 +269,24 @@ struct MainBoardView: View {
                 .font(.title2)
         } // Button ここまで
     } // solveButton ここまで
+    
+    // 現在の盤面を保存するメソッド
+    private func saveSudoku() {
+        // CoreDataのインスタンスを作成
+        let sudokuData = SudokuData(context: context)
+        // 数独を一次元の文字列に変換し、インスタンスに渡す
+        sudokuData.sudoku = viewModel.sudoku.flatMap { $0 }.map { String($0) }.joined()
+        // 保存した日付をインスタンスに渡す
+        sudokuData.date = Date()
+        do {
+            // データを保存
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        } // do-try-catch ここまで
+    } // saveSudoku ここまで
+
 } // MainBoardView ここまで
 
 #Preview {
