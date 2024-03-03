@@ -21,11 +21,35 @@ class MainBoardViewModel {
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    // Undoのための履歴を保持する変数
+    private var sudokuStack: [[[Int]]] = []
+    // 空の数独
+    private let emptySudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     
     // 数独の盤面に数字を入力するメソッド
     func enterNumberOnBoard(row: Int, column: Int) {
         let number = selectedButton.rawValue
         guard number < 10 else { return }
+        pushSudokuIntoStack()
         sudoku[row][column] = number
     } // enterToBoard ここまで
+    
+    // 現在の数独をスタックに格納するメソッド
+    func pushSudokuIntoStack() {
+        sudokuStack.append(sudoku)
+    } // pushIntoStackここまで
+    
+    // Undo（ひとつ前の盤面に戻す）を行うメソッド
+    func undo() {
+        // スタックからpopして返却
+        sudoku = sudokuStack.popLast() ?? emptySudoku
+    } // undo ここまで
 } // MainBoardViewModel

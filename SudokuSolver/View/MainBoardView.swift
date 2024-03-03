@@ -121,7 +121,8 @@ struct MainBoardView: View {
     // Undo（ひとつ前の状態に戻る）ボタン
     private var undoButton: some View {
         Button {
-            // TODO: Undo処理
+            // Undo（ひとつ前の盤面に戻す）を行う
+            viewModel.undo()
         } label: {
             Text("Undo")
                 .frame(width: 80, height: 32)
