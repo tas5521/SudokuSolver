@@ -161,7 +161,8 @@ struct MainBoardView: View {
     // 全てクリアするボタン
     private var clearAllButton: some View {
         Button {
-            // TODO: 全てクリアする処理
+            // 盤面の数字を全てクリアする
+            viewModel.clearAll()
         } label: {
             Text("Clear All")
                 .frame(width: 120, height: 32)

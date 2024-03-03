@@ -52,4 +52,10 @@ class MainBoardViewModel {
         // スタックからpop
         sudoku = sudokuStack.popLast() ?? emptySudoku
     } // undo ここまで
+    
+    // 盤面の数字を全てクリアするメソッド
+    func clearAll() {
+        pushSudokuIntoStack()
+        sudoku = emptySudoku
+    } // clearAll ここまで
 } // MainBoardViewModel
