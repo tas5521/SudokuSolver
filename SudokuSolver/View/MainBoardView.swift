@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct MainBoardView: View {
+    @Environment(\.managedObjectContext) private var context
     // View presentation
     // リスト画面の表示を管理する変数
     @State private var isShowList: Bool = false
+    // 数独を保存したことを伝えるメッセージの表示を管理すつ変数
+    @State private var isShowSaveMessage: Bool = false
     
     // ViewModel
     @State private var viewModel: MainBoardViewModel = MainBoardViewModel()
@@ -219,7 +222,10 @@ struct MainBoardView: View {
     // 数独の盤面を保存するボタン
     private var saveButton: some View {
         Button {
-            // TODO: 数独の盤面を保存する処理
+            // 数独の盤面を保存する処理
+            saveSudoku()
+            // 数独を保存したことをユーザーに伝えるメッセージ
+            isShowSaveMessage.toggle()
         } label: {
             Text("Save")
                 .frame(width: 80, height: 32)
@@ -228,6 +234,9 @@ struct MainBoardView: View {
                 .foregroundColor(Color.white)
                 .font(.title2)
         } // Button ここまで
+        .alert(isPresented: $isShowSaveMessage) {
+            Alert(title: Text("数独をリストに保存しました。"))
+        } // alert ここまで
     } // saveButton ここまで
     
     // 数独リストを表示するボタン
@@ -243,7 +252,7 @@ struct MainBoardView: View {
                 .font(.title2)
         } // Button ここまで
         .sheet(isPresented: $isShowList) {
-            SudokuListView(isShowList: $isShowList)
+            SudokuListView(isShowList: $isShowList, viewModel: $viewModel)
         } // sheet ここまで
     } // listButton ここまで
     
@@ -260,6 +269,24 @@ struct MainBoardView: View {
                 .font(.title2)
         } // Button ここまで
     } // solveButton ここまで
+    
+    // 現在の盤面を保存するメソッド
+    private func saveSudoku() {
+        // CoreDataのインスタンスを作成
+        let sudokuData = SudokuData(context: context)
+        // 数独を一次元の文字列に変換し、インスタンスに渡す
+        sudokuData.sudoku = viewModel.sudoku.flatMap { $0 }.map { String($0) }.joined()
+        // 保存した日付をインスタンスに渡す
+        sudokuData.date = Date()
+        do {
+            // データを保存
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        } // do-try-catch ここまで
+    } // saveSudoku ここまで
+
 } // MainBoardView ここまで
 
 #Preview {
