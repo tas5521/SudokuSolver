@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MainBoardView: View {
+    // View presentation
+    // リスト画面の表示を管理する変数
+    @State private var isShowList: Bool = false
+    
     // 数独を管理する変数
     @State private var sudoku: [[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                                           [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,7 +38,8 @@ struct MainBoardView: View {
                     Spacer()
                     // カメラ画面の画面遷移
                     NavigationLink {
-                        // TODO: カメラ画面のViewを配置
+                        // 数独スキャン画面へ遷移
+                        ScanSudokuView()
                     } label: {
                         Image(systemName: "camera.fill")
                             .foregroundStyle(Color.buttonBlue)
@@ -184,6 +189,7 @@ struct MainBoardView: View {
     private var listButton: some View {
         Button {
             // TODO: 数独リスト画面の表示
+            isShowList.toggle()
         } label: {
             Text("List")
                 .frame(width: 80, height: 32)
@@ -192,6 +198,9 @@ struct MainBoardView: View {
                 .foregroundColor(Color.white)
                 .font(.title2)
         } // Button ここまで
+        .sheet(isPresented: $isShowList) {
+            SudokuListView(isShowList: $isShowList)
+        } // sheet ここまで
     } // listButton ここまで
     
     // 数独を解くボタン
