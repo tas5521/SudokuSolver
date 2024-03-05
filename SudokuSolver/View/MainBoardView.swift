@@ -76,7 +76,8 @@ struct MainBoardView: View {
                 // 計算処理中だったら、インジケータを表示
                 if viewModel.isProcessing {
                     Color.gray.opacity(0.3)
-                    ProgressView("計算中です\nしばらくお待ち下さい")
+                        .ignoresSafeArea()
+                    ProgressView("処理中です\nしばらくお待ち下さい")
                 } // if ここまで
             } // ZStack ここまで
         } // NavigationStack
@@ -266,11 +267,11 @@ struct MainBoardView: View {
     // 数独を解くボタン
     private var solveButton: some View {
         Button {
-            //viewModel.isProcessing = true
+            viewModel.isProcessing = true
             Task {
                 // 数独を解く
                 await viewModel.solveSudoku()
-                //viewModel.isProcessing = false
+                viewModel.isProcessing = false
             } // Task ここまで
         } label: {
             Text("Solve")
