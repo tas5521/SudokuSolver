@@ -259,7 +259,8 @@ struct MainBoardView: View {
     // 数独を解くボタン
     private var solveButton: some View {
         Button {
-            
+            // 数独を解く
+            viewModel.solveSudoku()
         } label: {
             Text("Solve")
                 .frame(width: 120, height: 32)

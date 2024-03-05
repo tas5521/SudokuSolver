@@ -12,6 +12,7 @@ import CoreData
 class MainBoardViewModel {
     // 選択されているボタンを管理する変数
     var selectedButton: ButtonType = .start
+    
     // 数独を管理する変数
     var sudoku: [[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,4 +67,16 @@ class MainBoardViewModel {
         // 現在の数独の状態に空の数独を渡す
         sudoku = emptySudoku
     } // clearAll ここまで
+    
+//    @MainActor
+    func solveSudoku() {
+        if sudoku == emptySudoku { return }
+        // 数独ソルバーのインスタンスを生成
+        let sudokuSolver: SudokuSolver = SudokuSolver(sudoku: sudoku)
+        // 数独を解く
+        if let solution = sudokuSolver.solveSudoku() {
+            pushSudokuIntoStack()
+            sudoku = solution
+        } // if let ここまで
+    } // solveSudoku ここまで
 } // MainBoardViewModel
