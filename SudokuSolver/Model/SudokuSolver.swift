@@ -17,7 +17,7 @@ class SudokuSolver {
     }
     
     // 数独を解くメソッド
-    func solveSudoku() -> [[Int]]? {
+    func solveSudoku() async -> [[Int]]? {
         // 空のセルを探す
         var emptyCell: (Int, Int)? = nil
         for i in 0..<9 {
@@ -43,7 +43,7 @@ class SudokuSolver {
             if isValid(row: row, column: column, number: number) {
                 sudoku[row][column] = number
                 // 再帰的に次のセルを解く
-                if let solution = solveSudoku() {
+                if let solution = await solveSudoku() {
                     return solution
                 } // if let ここまで
                 // 解が見つからない場合は戻って元に戻す

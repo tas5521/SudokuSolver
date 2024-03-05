@@ -20,58 +20,65 @@ struct MainBoardView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Spacer()
-                HStack {
-                    // タイトル
-                    Text("Sudoku Solver")
-                        .font(.largeTitle)
-                        .bold()
+            ZStack {
+                VStack {
                     Spacer()
-                    // カメラ画面の画面遷移
-                    NavigationLink {
-                        // 数独スキャン画面へ遷移
-                        ScanSudokuView()
-                    } label: {
-                        Image(systemName: "camera.fill")
-                            .foregroundStyle(Color.buttonBlue)
-                            .scaleEffect(1.5)
-                    } // NavigationLink ここまで
-                } // HStack ここまで
-                .padding(.leading, 15)
-                .padding(.trailing, 25)
-                Spacer()
-                // 数独の盤面を配置
-                board
-                Spacer()
-                // 数字ボタンを配置
-                numberButtons
-                Spacer()
-                HStack(spacing: 20) {
-                    // Undo（ひとつ前の状態に戻る）ボタンを配置
-                    undoButton
-                    // クリアボタンを配置
-                    clearButton
-                    // 全てクリアするボタンを配置
-                    clearAllButton
-                } // HStack ここまで
-                HStack(spacing: 20) {
-                    // SNS等に数独の盤面をシェアするボタンを配置
-                    shareButton
-                    // ヒントボタン
-                    hintButton
-                    // 全てのヒントを解除するボタンを配置
-                    resetHintButton
-                } // HStack ここまで
-                HStack(spacing: 20) {
-                    // 数独の盤面を保存するボタンを配置
-                    saveButton
-                    // 数独リストを表示するボタンを配置
-                    listButton
-                    // 数独を解くボタンを配置
-                    solveButton
-                } // HStack ここまで
-            } // VStack ここまで
+                    HStack {
+                        // タイトル
+                        Text("Sudoku Solver")
+                            .font(.largeTitle)
+                            .bold()
+                        Spacer()
+                        // カメラ画面の画面遷移
+                        NavigationLink {
+                            // 数独スキャン画面へ遷移
+                            ScanSudokuView()
+                        } label: {
+                            Image(systemName: "camera.fill")
+                                .foregroundStyle(Color.buttonBlue)
+                                .scaleEffect(1.5)
+                        } // NavigationLink ここまで
+                    } // HStack ここまで
+                    .padding(.leading, 15)
+                    .padding(.trailing, 25)
+                    Spacer()
+                    // 数独の盤面を配置
+                    board
+                    Spacer()
+                    // 数字ボタンを配置
+                    numberButtons
+                    Spacer()
+                    HStack(spacing: 20) {
+                        // Undo（ひとつ前の状態に戻る）ボタンを配置
+                        undoButton
+                        // クリアボタンを配置
+                        clearButton
+                        // 全てクリアするボタンを配置
+                        clearAllButton
+                    } // HStack ここまで
+                    HStack(spacing: 20) {
+                        // SNS等に数独の盤面をシェアするボタンを配置
+                        shareButton
+                        // ヒントボタン
+                        hintButton
+                        // 全てのヒントを解除するボタンを配置
+                        resetHintButton
+                    } // HStack ここまで
+                    HStack(spacing: 20) {
+                        // 数独の盤面を保存するボタンを配置
+                        saveButton
+                        // 数独リストを表示するボタンを配置
+                        listButton
+                        // 数独を解くボタンを配置
+                        solveButton
+                    } // HStack ここまで
+                } // VStack ここまで
+                // 計算処理中だったら、インジケータを表示
+                if viewModel.isProcessing {
+                    Color.gray.opacity(0.3)
+                    ProgressView("計算中です\nしばらくお待ち下さい")
+                } // if ここまで
+            } // ZStack ここまで
         } // NavigationStack
     } // body ここまで
     
@@ -259,8 +266,12 @@ struct MainBoardView: View {
     // 数独を解くボタン
     private var solveButton: some View {
         Button {
-            // 数独を解く
-            viewModel.solveSudoku()
+            //viewModel.isProcessing = true
+            Task {
+                // 数独を解く
+                await viewModel.solveSudoku()
+                //viewModel.isProcessing = false
+            } // Task ここまで
         } label: {
             Text("Solve")
                 .frame(width: 120, height: 32)
