@@ -71,6 +71,7 @@ class MainBoardViewModel {
     } // clearAll ここまで
     
     // 数独を解くメソッド
+    // Viewの更新はメインスレッドで行う必要があるため、MainActorを指定
     @MainActor
     func solveSudoku() async {
         if sudoku == emptySudoku { return }
