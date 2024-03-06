@@ -5,7 +5,7 @@
 //  Created by 寒河江彪流 on 2024/03/05.
 //
 
-import SwiftUI
+import Foundation
 
 // 数独のソルバー
 class SudokuSolver {
@@ -15,7 +15,7 @@ class SudokuSolver {
     private var isCancelled: Bool = false
     
     // 数独を解くメソッド
-    func solveSudoku() async -> [[Int]]? {
+    func solve() async -> [[Int]]? {
         // キャンセルトークンがキャンセルされているかを確認
         if isCancelled { return nil }
         
@@ -44,7 +44,7 @@ class SudokuSolver {
             if isValid(row: row, column: column, number: number) {
                 sudoku[row][column] = number
                 // 再帰的に次のセルを解く
-                if let solution = await solveSudoku() {
+                if let solution = await solve() {
                     return solution
                 } // if let ここまで
                 // 解が見つからない場合は戻って元に戻す
@@ -84,6 +84,51 @@ class SudokuSolver {
         } // for i ここまで
         return true
     } // isValid ここまで
+    
+    // 数独を解く前に、数独が条件を満たしているかを確認するメソッド
+    func isValidInitially() -> Bool {
+        // 各行に重複がないかを確認
+        for row in sudoku {
+            var seen: Set<Int> = []
+            for number in row {
+                if number != 0 && seen.contains(number) {
+                    return false
+                } // if ここまで
+                seen.insert(number)
+            } // for ここまで
+        } // for ここまで
+        
+        // 各列に重複がないかを確認
+        for columnIndex in 0..<9 {
+            var seen: Set<Int> = []
+            for rowIndex in 0..<9 {
+                let number = sudoku[rowIndex][columnIndex]
+                if number != 0 && seen.contains(number) {
+                    return false
+                } // if ここまで
+                seen.insert(number)
+            } // for ここまで
+        } // for ここまで
+        
+        // 各3×3のブロックに重複がないかを確認
+        for i in 0..<3 {
+            for j in 0..<3 {
+                var seen: Set<Int> = []
+                for rowIndex in i*3..<i*3+3 {
+                    for columnIndex in j*3..<j*3+3 {
+                        let number = sudoku[rowIndex][columnIndex]
+                        if number != 0 && seen.contains(number) {
+                            return false
+                        } // if ここまで
+                        seen.insert(number)
+                    } // for ここまで
+                } // for ここまで
+            } // for ここまで
+        } // for ここまで
+        
+        return true
+    } // isValidInitially ここまで
+
     
     // 数独を解くのをキャンセルするメソッド
     func cancelSolve() {

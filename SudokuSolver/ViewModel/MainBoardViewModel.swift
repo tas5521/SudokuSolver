@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 
 @Observable
 class MainBoardViewModel {
@@ -26,6 +25,8 @@ class MainBoardViewModel {
                            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     // Undoのための履歴を保持する変数
     private var sudokuStack: [[[Int]]] = []
+    // 数独が初期条件を満たさない時の警告の表示を管理する変数
+    var isShowInvalidAlert: Bool = false
     // 空の数独
     private let emptySudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,8 +79,13 @@ class MainBoardViewModel {
         if sudoku == emptySudoku { return }
         // 数独ソルバーに現在の数独を渡す
         sudokuSolver.sudoku = sudoku
+        guard sudokuSolver.isValidInitially() else {
+            // 警告を表示
+            isShowInvalidAlert = true
+            return
+        } // guard ここまで
         // 数独を解く
-        if let solution = await sudokuSolver.solveSudoku() {
+        if let solution = await sudokuSolver.solve() {
             pushSudokuIntoStack()
             sudoku = solution
         } else {
