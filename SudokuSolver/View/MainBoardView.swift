@@ -291,6 +291,9 @@ struct MainBoardView: View {
                 .foregroundColor(Color.white)
                 .font(.title2)
         } // Button ここまで
+        .alert(isPresented: $viewModel.isShowInvalidAlert) {
+            Alert(title: Text("数独が条件を満たしていません"))
+        } // alert ここまで
     } // solveButton ここまで
     
     // 現在の盤面を保存するメソッド
