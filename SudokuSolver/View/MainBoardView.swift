@@ -81,7 +81,8 @@ struct MainBoardView: View {
                         ProgressView("処理中です\nしばらくお待ち下さい")
                         // キャンセルボタンを配置
                         Button {
-                            // TODO: キャンセル処理を実行
+                            // キャンセルを実行
+                            viewModel.cancelSolve()
                         } label: {
                             Text("Cancel")
                                 .padding()

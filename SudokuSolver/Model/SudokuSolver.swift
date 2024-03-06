@@ -5,19 +5,20 @@
 //  Created by 寒河江彪流 on 2024/03/05.
 //
 
-import Foundation
+import SwiftUI
 
 // 数独のソルバー
 class SudokuSolver {
     // 数独ボード
-    private var sudoku: [[Int]]
-    
-    init(sudoku: [[Int]]) {
-        self.sudoku = sudoku
-    }
+    var sudoku: [[Int]] = []
+    // キャンセルされたかどうかを管理する変数
+    private var isCancelled: Bool = false
     
     // 数独を解くメソッド
     func solveSudoku() async -> [[Int]]? {
+        // キャンセルトークンがキャンセルされているかを確認
+        if isCancelled { return nil }
+        
         // 空のセルを探す
         var emptyCell: (Int, Int)? = nil
         for i in 0..<9 {
@@ -83,4 +84,14 @@ class SudokuSolver {
         } // for i ここまで
         return true
     } // isValid ここまで
+    
+    // 数独を解くのをキャンセルするメソッド
+    func cancelSolve() {
+        isCancelled = true
+    } // cancelSolve ここまで
+    
+    // キャンセルされているかどうかをリセットするメソッド
+    func resetCancel() {
+        isCancelled = false
+    } // resetCancel ここまで
 } // SudokuSolver ここまで

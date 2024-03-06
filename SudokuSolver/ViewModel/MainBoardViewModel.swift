@@ -14,7 +14,6 @@ class MainBoardViewModel {
     var selectedButton: ButtonType = .start
     // 処理中であるかどうかを管理する変数
     var isProcessing: Bool = false
-    
     // 数独を管理する変数
     var sudoku: [[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -37,7 +36,9 @@ class MainBoardViewModel {
                                [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    
+    // 数独ソルバーのインスタンスを生成
+    private let sudokuSolver: SudokuSolver = SudokuSolver()
+
     // 数独の盤面に数字を入力するメソッド
     func enterNumberOnBoard(row: Int, column: Int) {
         // ボタンタイプの数値を取得
@@ -75,12 +76,20 @@ class MainBoardViewModel {
     @MainActor
     func solveSudoku() async {
         if sudoku == emptySudoku { return }
-        // 数独ソルバーのインスタンスを生成
-        let sudokuSolver: SudokuSolver = SudokuSolver(sudoku: sudoku)
+        // 数独ソルバーに現在の数独を渡す
+        sudokuSolver.sudoku = sudoku
         // 数独を解く
         if let solution = await sudokuSolver.solveSudoku() {
             pushSudokuIntoStack()
             sudoku = solution
+        } else {
+            // キャンセルされた後、キャンセル状態をfalseに戻す
+            sudokuSolver.resetCancel()
         } // if let ここまで
     } // solveSudoku ここまで
+    
+    // 数独を解くのをキャンセルするメソッド
+    func cancelSolve() {
+        sudokuSolver.cancelSolve()
+    } // cancelSolve ここまで
 } // MainBoardViewModel
