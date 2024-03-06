@@ -77,7 +77,16 @@ struct MainBoardView: View {
                 if viewModel.isProcessing {
                     Color.gray.opacity(0.3)
                         .ignoresSafeArea()
-                    ProgressView("処理中です\nしばらくお待ち下さい")
+                    VStack {
+                        ProgressView("処理中です\nしばらくお待ち下さい")
+                        // キャンセルボタンを配置
+                        Button {
+                            // TODO: キャンセル処理を実行
+                        } label: {
+                            Text("Cancel")
+                                .padding()
+                        } // Button ここまで
+                    }
                 } // if ここまで
             } // ZStack ここまで
         } // NavigationStack
