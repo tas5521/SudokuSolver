@@ -72,6 +72,7 @@ struct MainBoardView: View {
                         // 数独を解くボタンを配置
                         solveButton
                     } // HStack ここまで
+                    Spacer()
                 } // VStack ここまで
                 // 計算処理中だったら、インジケータを表示
                 if viewModel.isProcessing {
@@ -87,7 +88,7 @@ struct MainBoardView: View {
                             Text("Cancel")
                                 .padding()
                         } // Button ここまで
-                    }
+                    } // VStack ここまで
                 } // if ここまで
             } // ZStack ここまで
         } // NavigationStack
@@ -126,6 +127,7 @@ struct MainBoardView: View {
                 } // HStack ここまで
             } // ForEach ここまで
         } // VStack ここまで
+        .padding()
     } // board ここまで
     
     // 数字ボタン
@@ -195,10 +197,16 @@ struct MainBoardView: View {
     } // clearAllButtonここまで
     
     // SNS等に数独の盤面をシェアするボタン
+    @ViewBuilder
+    @MainActor
     private var shareButton: some View {
-        Button {
-            // TODO: シェア機能
-        } label: {
+        let sudokuImage = ImageRenderer(content: board).uiImage ?? UIImage()
+        ShareLink(
+            item: Image(uiImage: sudokuImage),
+            subject: nil,
+            message: nil,
+            preview: SharePreview("Sudoku", image: Image(uiImage: sudokuImage))
+        ) {
             Text("Share")
                 .frame(width: 80, height: 32)
                 .background(Color.buttonBlue)
@@ -312,7 +320,6 @@ struct MainBoardView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         } // do-try-catch ここまで
     } // saveSudoku ここまで
-
 } // MainBoardView ここまで
 
 #Preview {
