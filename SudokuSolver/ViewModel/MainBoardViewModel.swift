@@ -23,10 +23,12 @@ class MainBoardViewModel {
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    // Undoのための履歴を保持する変数
-    private var sudokuStack: [[[Int]]] = []
+    // ヒントを管理する変数
+    var hintBoard: [[Bool]] = Array(repeating: Array(repeating: false, count: 9), count: 9)
     // 数独が初期条件を満たさない時の警告の表示を管理する変数
     var isShowInvalidAlert: Bool = false
+    // Undoのための履歴を保持する変数
+    private var sudokuStack: [[[Int]]] = []
     // 空の数独
     private let emptySudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -39,7 +41,7 @@ class MainBoardViewModel {
                                [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     // 数独ソルバーのインスタンスを生成
     private let sudokuSolver: SudokuSolver = SudokuSolver()
-
+    
     // 数独の盤面に数字を入力するメソッド
     func enterNumberOnBoard(row: Int, column: Int) {
         // ボタンタイプの数値を取得
@@ -87,7 +89,20 @@ class MainBoardViewModel {
         // 数独を解く
         if let solution = await sudokuSolver.solve() {
             pushSudokuIntoStack()
-            sudoku = solution
+            // 一つでもヒントが指定されていた場合
+            if hintBoard.flatMap({ $0 }).contains(true) {
+                for row in 0..<9 {
+                    for column in 0..<9 {
+                        // ヒントが指定されているセルについてのみ、解を表示
+                        if hintBoard[row][column] == true {
+                            sudoku[row][column] = solution[row][column]
+                        } // if ここまで
+                    } // for ここまで
+                } // for ここまで
+            } else {
+                // 一つもヒントが指定されてない場合、全ての解を表示
+                sudoku = solution
+            } // if ここまで
         } else {
             // キャンセルされた後、キャンセル状態をfalseに戻す
             sudokuSolver.resetCancel()
@@ -98,4 +113,9 @@ class MainBoardViewModel {
     func cancelSolve() {
         sudokuSolver.cancelSolve()
     } // cancelSolve ここまで
+    
+    // 全てのヒントを解除するメソッド
+    func resetAllHints() {
+        hintBoard = Array(repeating: Array(repeating: false, count: 9), count: 9)
+    } // resetAllHints ここまで
 } // MainBoardViewModel

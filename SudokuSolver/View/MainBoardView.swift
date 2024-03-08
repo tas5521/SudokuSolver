@@ -105,15 +105,21 @@ struct MainBoardView: View {
                         Button {
                             // 選択されている数字を盤面に入力する
                             viewModel.enterNumberOnBoard(row: row, column: column)
+                            // ヒントが選択されている場合
+                            if viewModel.selectedButton == .hint {
+                                viewModel.hintBoard[row][column].toggle()
+                            } // if ここまで
                         } label: {
                             // 0だったら表示しない
                             Text(number == 0 ? "" : String(number))
                                 .frame(width: 40, height: 40)
                                 .border(Color.black, width: 1)
-                            // 背景色を白とグレーに分ける
+                            // 背景色を指定
                                 .background(
                                     Group {
-                                        if (row / 3 != 1 && column / 3 != 1) || (row / 3 == 1 && column / 3 == 1) {
+                                        if viewModel.hintBoard[row][column] {
+                                            Color.buttonOrange
+                                        } else if (row / 3 != 1 && column / 3 != 1) || (row / 3 == 1 && column / 3 == 1) {
                                             Color.white
                                         } else {
                                             Color.boardGray
@@ -213,7 +219,7 @@ struct MainBoardView: View {
                 .cornerRadius(5)
                 .foregroundColor(Color.white)
                 .font(.title2)
-        } // Button ここまで
+        } // ShareLink ここまで
     } // shareButton ここまで
     
     // ヒントボタン
@@ -234,7 +240,8 @@ struct MainBoardView: View {
     // 全てのヒントを解除するボタン
     private var resetHintButton: some View {
         Button {
-            // TODO: 全てのヒントを解除する
+            // 全てのヒントを解除する
+            viewModel.resetAllHints()
         } label: {
             Text("Reset Hint")
                 .frame(width: 120, height: 32)
