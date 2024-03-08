@@ -89,7 +89,20 @@ class MainBoardViewModel {
         // 数独を解く
         if let solution = await sudokuSolver.solve() {
             pushSudokuIntoStack()
-            sudoku = solution
+            // 一つでもヒントが指定されていた場合
+            if hintBoard.flatMap({ $0 }).contains(true) {
+                for row in 0..<9 {
+                    for column in 0..<9 {
+                        // ヒントが指定されているセルについてのみ、解を表示
+                        if hintBoard[row][column] {
+                            sudoku[row][column] = solution[row][column]
+                        } // if ここまで
+                    } // for ここまで
+                } // for ここまで
+            } else {
+                // 一つもヒントが指定されてない場合、全ての解を表示
+                sudoku = solution
+            } // if ここまで
         } else {
             // キャンセルされた後、キャンセル状態をfalseに戻す
             sudokuSolver.resetCancel()
