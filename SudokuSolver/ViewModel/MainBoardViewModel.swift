@@ -94,7 +94,7 @@ class MainBoardViewModel {
                 for row in 0..<9 {
                     for column in 0..<9 {
                         // ヒントが指定されているセルについてのみ、解を表示
-                        if hintBoard[row][column] {
+                        if hintBoard[row][column] == true {
                             sudoku[row][column] = solution[row][column]
                         } // if ここまで
                     } // for ここまで
