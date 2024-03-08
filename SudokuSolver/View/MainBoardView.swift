@@ -105,7 +105,7 @@ struct MainBoardView: View {
                         Button {
                             // 選択されている数字を盤面に入力する
                             viewModel.enterNumberOnBoard(row: row, column: column)
-                            // ヒントボタンが選択されていたら、
+                            // ヒントが選択されている場合
                             if viewModel.selectedButton == .hint {
                                 viewModel.hintBoard[row][column].toggle()
                             } // if ここまで
