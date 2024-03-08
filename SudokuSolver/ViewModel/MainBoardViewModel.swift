@@ -23,10 +23,12 @@ class MainBoardViewModel {
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    // Undoのための履歴を保持する変数
-    private var sudokuStack: [[[Int]]] = []
+    // ヒントを管理する変数
+    var hintBoard: [[Bool]] = Array(repeating: Array(repeating: false, count: 9), count: 9)
     // 数独が初期条件を満たさない時の警告の表示を管理する変数
     var isShowInvalidAlert: Bool = false
+    // Undoのための履歴を保持する変数
+    private var sudokuStack: [[[Int]]] = []
     // 空の数独
     private let emptySudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -39,7 +41,7 @@ class MainBoardViewModel {
                                [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     // 数独ソルバーのインスタンスを生成
     private let sudokuSolver: SudokuSolver = SudokuSolver()
-
+    
     // 数独の盤面に数字を入力するメソッド
     func enterNumberOnBoard(row: Int, column: Int) {
         // ボタンタイプの数値を取得
