@@ -240,7 +240,8 @@ struct MainBoardView: View {
     // 全てのヒントを解除するボタン
     private var resetHintButton: some View {
         Button {
-            // TODO: 全てのヒントを解除する
+            // 全てのヒントを解除する
+            viewModel.resetAllHints()
         } label: {
             Text("Reset Hint")
                 .frame(width: 120, height: 32)

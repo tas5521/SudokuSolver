@@ -113,4 +113,9 @@ class MainBoardViewModel {
     func cancelSolve() {
         sudokuSolver.cancelSolve()
     } // cancelSolve ここまで
+    
+    // 全てのヒントを解除するメソッド
+    func resetAllHints() {
+        hintBoard = Array(repeating: Array(repeating: false, count: 9), count: 9)
+    } // resetAllHints ここまで
 } // MainBoardViewModel
