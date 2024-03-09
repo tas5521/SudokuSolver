@@ -30,15 +30,15 @@ class MainBoardViewModel {
     // Undoのための履歴を保持する変数
     private var sudokuStack: [[[Int]]] = []
     // 空の数独
-    private let emptySudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                               [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    private let emptySudoku: [[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                        [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     // 数独ソルバーのインスタンスを生成
     private let sudokuSolver: SudokuSolver = SudokuSolver()
     
@@ -78,14 +78,19 @@ class MainBoardViewModel {
     // Viewの更新はメインスレッドで行う必要があるため、MainActorを指定
     @MainActor
     func solveSudoku() async {
+        // 数独の盤面が空じゃないかチェック、空だったら終了
         if sudoku == emptySudoku { return }
-        // 数独ソルバーに現在の数独を渡す
-        sudokuSolver.sudoku = sudoku
-        guard sudokuSolver.isValidInitially() else {
-            // 警告を表示
+        // 現在の盤面が数独の条件を満たすかチェック
+        guard isValidInitially() else {
+            // 条件を満たさなかったら警告を表示して終了
             isShowInvalidAlert = true
             return
         } // guard ここまで
+        // 画面をロック
+        isProcessing = true
+        // ここから解き始める
+        // 数独ソルバーに現在の数独を渡す
+        sudokuSolver.sudoku = sudoku
         // 数独を解く
         if let solution = await sudokuSolver.solve() {
             pushSudokuIntoStack()
@@ -103,9 +108,13 @@ class MainBoardViewModel {
                 // 一つもヒントが指定されてない場合、全ての解を表示
                 sudoku = solution
             } // if ここまで
+            // 画面ロックを解除
+            isProcessing = false
         } else {
             // キャンセルされた後、キャンセル状態をfalseに戻す
             sudokuSolver.resetCancel()
+            // 画面ロックを解除
+            isProcessing = false
         } // if let ここまで
     } // solveSudoku ここまで
     
@@ -118,4 +127,45 @@ class MainBoardViewModel {
     func resetAllHints() {
         hintBoard = Array(repeating: Array(repeating: false, count: 9), count: 9)
     } // resetAllHints ここまで
+    
+    // 数独を解く前に、数独が条件を満たしているかを確認するメソッド
+    private func isValidInitially() -> Bool {
+        // 各行に重複がないかを確認
+        for row in sudoku {
+            var seen: Set<Int> = []
+            for number in row {
+                if number != 0 && seen.contains(number) {
+                    return false
+                } // if ここまで
+                seen.insert(number)
+            } // for ここまで
+        } // for ここまで
+        // 各列に重複がないかを確認
+        for columnIndex in 0..<9 {
+            var seen: Set<Int> = []
+            for rowIndex in 0..<9 {
+                let number = sudoku[rowIndex][columnIndex]
+                if number != 0 && seen.contains(number) {
+                    return false
+                } // if ここまで
+                seen.insert(number)
+            } // for ここまで
+        } // for ここまで
+        // 各3×3のブロックに重複がないかを確認
+        for i in 0..<3 {
+            for j in 0..<3 {
+                var seen: Set<Int> = []
+                for rowIndex in i*3..<i*3+3 {
+                    for columnIndex in j*3..<j*3+3 {
+                        let number = sudoku[rowIndex][columnIndex]
+                        if number != 0 && seen.contains(number) {
+                            return false
+                        } // if ここまで
+                        seen.insert(number)
+                    } // for ここまで
+                } // for ここまで
+            } // for ここまで
+        } // for ここまで
+        return true
+    } // isValidInitially ここまで
 } // MainBoardViewModel
