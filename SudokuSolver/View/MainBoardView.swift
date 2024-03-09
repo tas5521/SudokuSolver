@@ -126,7 +126,7 @@ struct MainBoardView: View {
                                         } // if ここまで
                                     } // Group ここまで
                                 ) // background ここまで
-                                .foregroundColor(Color.black)
+                                .foregroundStyle(Color.black)
                                 .font(.title)
                         } // Button ここまで
                     } // ForEach ここまで
@@ -205,7 +205,7 @@ struct MainBoardView: View {
     @ViewBuilder
     @MainActor
     private var shareButton: some View {
-        let sudokuImage = ImageRenderer(content: board).uiImage ?? UIImage()
+        let sudokuImage = viewModel.getSudokuImage()
         ShareLink(
             item: Image(uiImage: sudokuImage),
             subject: nil,
