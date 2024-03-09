@@ -133,7 +133,6 @@ struct MainBoardView: View {
                 } // HStack ここまで
             } // ForEach ここまで
         } // VStack ここまで
-        .padding()
     } // board ここまで
     
     // 数字ボタン
