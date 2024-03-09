@@ -23,7 +23,7 @@ struct ScanSudokuView: View {
                     Image(uiImage: image)
                     // 画像のリサイズ
                         .resizable()
-                    // 横幅
+                    // 枠に合わせてリサイズ
                         .scaledToFit()
                     // 幅高さ280に指定
                         .frame(width: 280, height: 280)
