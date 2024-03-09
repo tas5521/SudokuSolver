@@ -11,6 +11,9 @@ import PhotosUI
 struct ScanSudokuView: View {
     // ScanSudokuViewModelのインスタンス
     @State private var viewModel: ScanSudokuViewModel = ScanSudokuViewModel()
+    // View Presentation
+    // カメラの表示を管理する変数
+    @State private var isShowCamera: Bool = false
     
     var body: some View {
         VStack {
@@ -33,7 +36,8 @@ struct ScanSudokuView: View {
             Spacer()
             // カメラ表示ボタン
             Button {
-                // TODO: カメラを表示
+                // カメラを表示
+                isShowCamera.toggle()
             } label: {
                 Text("Camera")
                     .frame(maxWidth: .infinity)
@@ -43,6 +47,9 @@ struct ScanSudokuView: View {
                     .foregroundColor(Color.white)
                     .padding()
             } // Button ここまで
+            .sheet(isPresented: $isShowCamera) {
+                ImagePickerView(viewModel: $viewModel)
+            } // sheet ここまで
             // フォトライブラリー表示ボタン
             PhotosPicker(selection: $viewModel.selectedPhoto) {
                 Text("Photo Library")
