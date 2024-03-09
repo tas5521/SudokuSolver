@@ -18,7 +18,6 @@ class SudokuSolver {
     func solve() async -> [[Int]]? {
         // キャンセルトークンがキャンセルされているかを確認
         if isCancelled { return nil }
-        
         // 空のセルを探す
         var emptyCell: (Int, Int)? = nil
         for i in 0..<9 {
@@ -32,12 +31,10 @@ class SudokuSolver {
                 break
             } // if ここまで
         } // for ここまで
-        
         // 空のセルが見つからない場合、数独が解けたことになる
         if emptyCell == nil {
             return sudoku
         } // if ここまで
-        
         // 空のセルに数字を割り当てて解を探索
         let (row, column) = emptyCell!
         for number in 1...9 {
@@ -51,7 +48,6 @@ class SudokuSolver {
                 sudoku[row][column] = 0
             } // if ここまで
         } // for ここまで
-        
         // このセルに対してどの数字も有効でない場合は、この解法は失敗
         return nil
     } // solveSudoku ここまで
@@ -64,14 +60,12 @@ class SudokuSolver {
                 return false
             } // if ここまで
         } // for ここまで
-        
         // 同じ列に同じ数字がないかをチェック
         for i in 0..<9 {
             if sudoku[i][column] == number {
                 return false
             } // if ここまで
         } // for ここまで
-        
         // 同じ3x3のブロックに同じ数字がないかをチェック
         let startRow = (row / 3) * 3
         let startColumn = (column / 3) * 3
@@ -84,52 +78,7 @@ class SudokuSolver {
         } // for i ここまで
         return true
     } // isValid ここまで
-    
-    // 数独を解く前に、数独が条件を満たしているかを確認するメソッド
-    func isValidInitially() -> Bool {
-        // 各行に重複がないかを確認
-        for row in sudoku {
-            var seen: Set<Int> = []
-            for number in row {
-                if number != 0 && seen.contains(number) {
-                    return false
-                } // if ここまで
-                seen.insert(number)
-            } // for ここまで
-        } // for ここまで
-        
-        // 各列に重複がないかを確認
-        for columnIndex in 0..<9 {
-            var seen: Set<Int> = []
-            for rowIndex in 0..<9 {
-                let number = sudoku[rowIndex][columnIndex]
-                if number != 0 && seen.contains(number) {
-                    return false
-                } // if ここまで
-                seen.insert(number)
-            } // for ここまで
-        } // for ここまで
-        
-        // 各3×3のブロックに重複がないかを確認
-        for i in 0..<3 {
-            for j in 0..<3 {
-                var seen: Set<Int> = []
-                for rowIndex in i*3..<i*3+3 {
-                    for columnIndex in j*3..<j*3+3 {
-                        let number = sudoku[rowIndex][columnIndex]
-                        if number != 0 && seen.contains(number) {
-                            return false
-                        } // if ここまで
-                        seen.insert(number)
-                    } // for ここまで
-                } // for ここまで
-            } // for ここまで
-        } // for ここまで
-        
-        return true
-    } // isValidInitially ここまで
 
-    
     // 数独を解くのをキャンセルするメソッド
     func cancelSolve() {
         isCancelled = true

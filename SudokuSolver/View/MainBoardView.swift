@@ -292,11 +292,9 @@ struct MainBoardView: View {
     // 数独を解くボタン
     private var solveButton: some View {
         Button {
-            viewModel.isProcessing = true
             Task {
                 // 数独を解く
                 await viewModel.solveSudoku()
-                viewModel.isProcessing = false
             } // Task ここまで
         } label: {
             Text("Solve")
