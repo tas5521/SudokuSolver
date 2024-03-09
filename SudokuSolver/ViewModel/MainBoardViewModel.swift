@@ -5,10 +5,10 @@
 //  Created by 寒河江彪流 on 2024/03/03.
 //
 
-import Foundation
+import SwiftUI
 
 @Observable
-class MainBoardViewModel {
+final class MainBoardViewModel {
     // 選択されているボタンを管理する変数
     var selectedButton: ButtonType = .start
     // 処理中であるかどうかを管理する変数
@@ -168,4 +168,18 @@ class MainBoardViewModel {
         } // for ここまで
         return true
     } // isValidInitially ここまで
+    
+    // 数独の盤面を画像に変換するメソッド
+    @MainActor
+    func getSudokuImage() -> UIImage {
+        // 数独の盤面のViewを生成
+        let sudokuBoardView = SudokuBoardView(board: sudoku)
+        // Viewを画像にレンダリング
+        if let image = sudokuBoardView.render() {
+            // 画像を生成できたら、生成した画像を返却
+            return image
+        } // if letここまで
+        // 画像を生成できなかったら、空の画像を返却
+        return UIImage()
+    } // getSudokuImage ここまで
 } // MainBoardViewModel
