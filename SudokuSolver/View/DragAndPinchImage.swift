@@ -13,9 +13,9 @@ struct DragAndPinchImage: View {
     
     // 画像のドラッグに関わる変数
     // 現在のオフセットを保持する変数
-    @State var offset: CGSize = .zero
+    @State private var offset: CGSize = .zero
     // オフセットを調節した後の値
-    @State var lastOffset: CGSize = .zero
+    @State private var lastOffset: CGSize = .zero
     
     // 画像の拡大縮小に関わる変数
     // 現在のスケールを保持する変数
@@ -29,9 +29,9 @@ struct DragAndPinchImage: View {
     
     // 画像の回転に関わる変数
     // 現在の角度を保持する変数
-    @State var angle: Angle = .zero
+    @State private var angle: Angle = .zero
     // 角度を調節した後の値
-    @State var lastAngle: Angle = .zero
+    @State private var lastAngle: Angle = .zero
     
     var body: some View {
         // 画像を表示
