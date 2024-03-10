@@ -39,7 +39,7 @@ struct ScanSudokuView: View {
                     .frame(height: 50)
                     .background(Color.buttonBlue)
                     .cornerRadius(5)
-                    .foregroundColor(Color.white)
+                    .foregroundStyle(Color.white)
                     .padding()
             } // Button ここまで
             .sheet(isPresented: $isShowCamera) {
@@ -52,7 +52,7 @@ struct ScanSudokuView: View {
                     .frame(height: 50)
                     .background(Color.buttonBlue)
                     .cornerRadius(5)
-                    .foregroundColor(Color.white)
+                    .foregroundStyle(Color.white)
                     .padding()
             } // Button ここまで
             .onChange(of: viewModel.selectedPhoto) {
@@ -61,6 +61,20 @@ struct ScanSudokuView: View {
                     await viewModel.getUIImage()
                 } // Task ここまで
             } // onChange ここまで
+            // 数独読み込みボタン
+            Button {
+                // TODO: 数独を読み込む処理
+            } label: {
+                Text("Load Sudoku")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(viewModel.image == nil ? Color.gray : Color.buttonBlue)
+                    .cornerRadius(5)
+                    .foregroundStyle(Color.white)
+                    .padding()
+            } // Button ここまで
+            // 画像が読み込まれていないときはボタンを押せなくする
+            .disabled(viewModel.image == nil)
         } // VStack ここまで
     } // body ここまで
 } // ScanSudokuView ここまで
