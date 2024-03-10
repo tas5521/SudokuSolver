@@ -21,7 +21,7 @@ struct ScanSudokuView: View {
             ZStack {
                 if let image = viewModel.image {
                     // 画像を表示
-                    DragAndPinchView(image: image)
+                    DragAndPinchImage(image: image)
                 } // if let ここまで
                 Rectangle()
                     .fill(Color.clear)

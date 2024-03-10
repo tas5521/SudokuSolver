@@ -21,6 +21,12 @@ struct DragAndPinchImage: View {
     // スケールの最大値
     private let maximumScale: Double = 5.0
     
+    // 画像の回転に関わる変数
+    // 現在の角度を保持する変数
+    @State var angle: Angle = .zero
+    // 角度を調節した後の値
+    @State var lastAngle: Angle = .zero
+    
     var body: some View {
         // 画像を表示
         Image(uiImage: image)
@@ -32,11 +38,13 @@ struct DragAndPinchImage: View {
             .frame(width: 280, height: 280)
         // スケールを調節
             .scaleEffect(scale)
+        // 回転を調節
+            .rotationEffect(angle, anchor: .center)
         // ジェスチャーを指定
-            .gesture(scaleGuesture)
+            .gesture(SimultaneousGesture(scaleGuesture, rotateGesture))
     } // body ここまで
     
-    // 画像のスケーリング
+    // 画像の拡大縮小
     var scaleGuesture: some Gesture {
         MagnificationGesture()
             .onChanged {
@@ -44,8 +52,19 @@ struct DragAndPinchImage: View {
                     scale = $0 * lastScale
                 } // if ここまで
             } // onChanged ここまで
-            .onEnded{ _ in
+            .onEnded { _ in
                 lastScale = scale
             } // onEnded ここまで
     } // scaleGuesture ここまで
+    
+    // 画像の回転
+    var rotateGesture: some Gesture {
+        RotationGesture(minimumAngleDelta: .degrees(1))
+            .onChanged {
+                angle = $0 + lastAngle
+            } // onChanged ここまで
+            .onEnded { _ in
+                lastAngle = angle
+            } // onEnded ここまで
+    } // rotateGesture ここまで
 } // DragAndPinchImage ここまで
