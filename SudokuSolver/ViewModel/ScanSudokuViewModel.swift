@@ -16,8 +16,8 @@ final class ScanSudokuViewModel {
     var image: UIImage? = nil
     // フレームの座標とサイズの情報を保持する変数
     var frameRect: CGRect = .zero
-    // 枠から切り抜いたImageを保持する変数
-    var imageInsideFrame: UIImage? = nil
+    // 各セルのImageを保持する配列
+    var images: [UIImage] = []
     
     @MainActor
     // PhotosPickerItemをUIImageに変換
@@ -33,15 +33,24 @@ final class ScanSudokuViewModel {
         } // if let ここまで
     } // getUIImage ここまで
     
+    // 画像から数独を読み込むメソッド
+    func loadSudoku() {
+        // 枠内の画像を取得
+        let imageInsideFrame = getImageInsideFrame()
+        // ImagePreprocessorのインスタンスを生成
+        let preprocessor = ImagePreprocessor(image: imageInsideFrame)
+        images = preprocessor.preprocess()
+    } // loadSudoku ここまで
+
     // 枠内の画像を取得するメソッド
-    func getImageInsideFrame() {
+    private func getImageInsideFrame() -> UIImage {
         // アプリケーションの最初のシーンを取得し、それがUIWindowSceneであることを確認
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return UIImage() }
         // 取得したウィンドウシーンから、最初のウィンドウを取得
-        guard let mainWindow = windowScene.windows.first else { return }
+        guard let mainWindow = windowScene.windows.first else { return UIImage() }
         // ウィンドウのルートビューコントローラーのビューから、指定された枠内の画像を取得
-        guard let image = mainWindow.rootViewController?.view.getImage(rect: frameRect) else { return }
+        guard let image = mainWindow.rootViewController?.view.getImage(rect: frameRect) else { return UIImage() }
         // 取得した画像を保持
-        imageInsideFrame = image
+        return image
     } // getImageInsideFrame ここまで
 } // ScanSudokuViewModel ここまで
