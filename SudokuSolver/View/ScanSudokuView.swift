@@ -20,14 +20,9 @@ struct ScanSudokuView: View {
             Spacer()
             ZStack {
                 if let image = viewModel.image {
-                    Image(uiImage: image)
-                    // 画像のリサイズ
-                        .resizable()
-                    // 枠に合わせてリサイズ
-                        .scaledToFit()
-                    // 幅高さ280に指定
-                        .frame(width: 280, height: 280)
-                } // 画像を表示
+                    // 画像を表示
+                    DragAndPinchImage(image: image)
+                } // if let ここまで
                 Rectangle()
                     .fill(Color.clear)
                     .stroke(Color.blue, lineWidth: 2)
