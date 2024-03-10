@@ -23,7 +23,8 @@ final class ImagePreprocessor {
         let resizedImages = resizeTo28x28(images: cellImages)
         // 画像をグレースケールに変換
         let grayScaledImages = convertToGrayScale(images: resizedImages)
-        return grayScaledImages
+        // 白黒反転
+        return invertColor(images: grayScaledImages)
     } // preprocess ここまで
     
     // 数独の画像の各セルを取得するメソッド
@@ -89,4 +90,55 @@ final class ImagePreprocessor {
             return UIImage(cgImage: cgImage)
         } // map ここまで
     } // convertToGrayScale ここまで
+    
+    // 白黒反転するメソッド
+    private func invertColor(images: [UIImage]) -> [UIImage] {
+        images.map { image in
+            // cgImageを取得
+            guard let cgImage = image.cgImage else { return UIImage() }
+            // 画像の幅と高さを取得
+            let width = cgImage.width
+            let height = cgImage.height
+            //
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            // CGContextを生成
+            guard let context = CGContext(
+                // ピクセルデータのメモリへのポインタ ここでは使用しない
+                data: nil,
+                // 描画する画像の幅（ピクセル単位）
+                width: width,
+                // 描画する画像の高さ（ピクセル単位）
+                height: height,
+                // 画像の各色成分ごとのビット数。通常は8ビット（1バイト）。
+                bitsPerComponent: 8,
+                // 画像の各行のバイト数。
+                // ここでは width に4を掛けた値を使用。
+                // 1ピクセルあたりの色成分数はRGBAの4つで、各色成分は8ビット（1バイト）で表現されるため、width（行のピクセル数）に4バイトをかける
+                bytesPerRow: width * 4,
+                // 画像の色空間を示すCGColorSpaceオブジェクト。ここではデバイスのRGB色空間が使用されている。
+                space: colorSpace,
+                // 画像のビットマップの特性を示す値。
+                // CGImageAlphaInfo.noneSkipLast.rawValue は、アルファチャンネルを持たず、ピクセルの並び順が逆転していることを示している。
+                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+            ) else { return UIImage() }
+            // cgImageを描画
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+            // context.dataを使用して、ピクセルデータを取得
+            if let buffer = context.data {
+                // bufferが指すメモリ領域をUInt8型のメモリとして解釈し、そのポインタをpixelBufferにバインドする
+                let pixelBuffer = buffer.bindMemory(to: UInt8.self, capacity: width * height * 4)
+                for number in 0..<(width * height * 4) {
+                    // 白黒反転
+                    pixelBuffer[number] = 255 - pixelBuffer[number]
+                } // for ここまで
+                // 画像を作成
+                if let invertedCGImage = context.makeImage() {
+                    // UIImageに変換し、返却
+                    let invertedImage = UIImage(cgImage: invertedCGImage)
+                    return invertedImage
+                } // if let ここまで
+            } // if let ここまで
+            return UIImage()
+        } // map ここまで
+    } // invertColor ここまで
 } // ImagePreprocessor ここまで
