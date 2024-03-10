@@ -21,7 +21,9 @@ final class ImagePreprocessor {
         let cellImages = getEachCell(from: image)
         // 画像を28x28ピクセルにリサイズ
         let resizedImages = resizeTo28x28(images: cellImages)
-        return resizedImages
+        // 画像をグレースケールに変換
+        let grayScaledImages = convertToGrayScale(images: resizedImages)
+        return grayScaledImages
     } // preprocess ここまで
     
     // 数独の画像の各セルを取得するメソッド
@@ -67,4 +69,24 @@ final class ImagePreprocessor {
         UIGraphicsEndImageContext()
         return resizedImages
     } // resizeImages ここまで
+    
+    // 画像をグレースケールに変換するメソッド
+    private func convertToGrayScale(images: [UIImage]) -> [UIImage] {
+        images.map { image in
+            // UIImageをCIImageに変換
+            let ciImage = CIImage(image: image)
+            // グレースケールにするためのフィルターを作成
+            guard let filter = CIFilter(name: "CIColorControls") else { return UIImage() }
+            // フィルターに画像をセット
+            filter.setValue(ciImage, forKey: kCIInputImageKey)
+            // 彩度を完全に除去し、画像をグレースケールに変換
+            filter.setValue(0.0, forKey: kCIInputSaturationKey)
+            // フィルターをした画像を取得
+            guard let outputImage = filter.outputImage else { return UIImage() }
+            // cgImageを取得
+            guard let cgImage = CIContext().createCGImage(outputImage, from: outputImage.extent) else { return UIImage() }
+            // cgImageをUIImageに変換して返却
+            return UIImage(cgImage: cgImage)
+        } // map ここまで
+    } // convertToGrayScale ここまで
 } // ImagePreprocessor ここまで
