@@ -39,6 +39,7 @@ final class ScanSudokuViewModel {
         let imageInsideFrame = getImageInsideFrame()
         // ImagePreprocessorのインスタンスを生成
         let preprocessor = ImagePreprocessor(image: imageInsideFrame)
+        // 画像の前処理を実行
         images = preprocessor.preprocess()
     } // loadSudoku ここまで
 
