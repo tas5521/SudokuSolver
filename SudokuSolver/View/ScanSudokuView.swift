@@ -91,6 +91,10 @@ struct ScanSudokuView: View {
             } // sheet ここまで
         } // VStack ここまで
         .padding()
+        // このViewが閉じたとき、プロパティを初期化
+        .onDisappear {
+            viewModel.initializeProperties()
+        } // onDisappear ここまで
     } // body ここまで
 } // ScanSudokuView ここまで
 

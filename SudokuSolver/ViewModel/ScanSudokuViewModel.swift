@@ -54,4 +54,12 @@ final class ScanSudokuViewModel {
         // 取得した画像を保持
         return image
     } // getImageInsideFrame ここまで
+    
+    // プロパティの状態を初期値に戻すメソッド
+    func initializeProperties() {
+        selectedPhoto = nil
+        image = nil
+        frameRect = .zero
+        images.removeAll()
+    } // initializeProperties ここまで
 } // ScanSudokuViewModel ここまで
