@@ -35,12 +35,8 @@ final class ScanSudokuViewModel {
     
     // 画像から数独を読み込むメソッド
     func loadSudoku() {
-        // 枠内の画像を取得
-        let imageInsideFrame = getImageInsideFrame()
-        // ImagePreprocessorのインスタンスを生成
-        let preprocessor = ImagePreprocessor(image: imageInsideFrame)
         // 画像の前処理を実行
-        images = preprocessor.preprocess()
+        images = ImagePreprocessor.preprocess(image: getImageInsideFrame())
     } // loadSudoku ここまで
 
     // 枠内の画像を取得するメソッド

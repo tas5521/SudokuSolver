@@ -8,15 +8,8 @@
 import UIKit
 
 final class ImagePreprocessor {
-    // 処理前の画像
-    let image: UIImage
-    
-    init(image: UIImage) {
-        self.image = image
-    } // init ここまで
-    
     // 前処理するメソッド
-    func preprocess() -> [UIImage] {
+    static func preprocess(image: UIImage) -> [UIImage] {
         // 数独の画像の各セルを取得
         let cellImages = getEachCell(from: image)
         // 画像を28x28ピクセルにリサイズ
@@ -28,7 +21,7 @@ final class ImagePreprocessor {
     } // preprocess ここまで
     
     // 数独の画像の各セルを取得するメソッド
-    private func getEachCell(from image: UIImage) -> [UIImage] {
+    static private func getEachCell(from image: UIImage) -> [UIImage] {
         // 枠をどの程度除外するかの基準
         // 枠が含まれていると文字認識に影響が出てしまうので、画像から除外する
         let criterion: CGFloat = CGFloat(0.15)
@@ -51,7 +44,7 @@ final class ImagePreprocessor {
     } // getEachCell ここまで
     
     // 画像を28x28ピクセルにリサイズするメソッド
-    private func resizeTo28x28(images: [UIImage]) -> [UIImage] {
+    static private func resizeTo28x28(images: [UIImage]) -> [UIImage] {
         // 目標のピクセルサイズ（28）
         let targetSize = CGSize(width: 28, height: 28)
         // 新しい描画コンテキストのサイズ（リサイズ後の画像のサイズ）を指定
@@ -72,7 +65,7 @@ final class ImagePreprocessor {
     } // resizeImages ここまで
     
     // 画像をグレースケールに変換するメソッド
-    private func convertToGrayScale(images: [UIImage]) -> [UIImage] {
+    static private func convertToGrayScale(images: [UIImage]) -> [UIImage] {
         images.map { image in
             // UIImageをCIImageに変換
             let ciImage = CIImage(image: image)
@@ -92,7 +85,7 @@ final class ImagePreprocessor {
     } // convertToGrayScale ここまで
     
     // 白黒反転するメソッド
-    private func invertColor(images: [UIImage]) -> [UIImage] {
+    static private func invertColor(images: [UIImage]) -> [UIImage] {
         images.map { image in
             // cgImageを取得
             guard let cgImage = image.cgImage else { return UIImage() }
