@@ -29,7 +29,7 @@ struct SudokuListView: View {
             List {
                 ForEach(fetchedSudokus, id: \.self) { sudokuData in
                     // 一次元の数独を二次元に変換
-                    let sudoku = create2DSudoku(from: sudokuData.sudoku ?? zeros)
+                    let sudoku = Utility.create2DSudoku(from: sudokuData.sudoku ?? zeros)
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             // 日付
@@ -101,22 +101,6 @@ struct SudokuListView: View {
         } // VStack ここまで
         .scaleEffect(0.8)
     } // sudokuBoardView ここまで
-    
-    // 一次元の数独を二次元の数独に変換するメソッド
-    private func create2DSudoku(from flattenSudoku: String) -> [[Int]] {
-        var result: [[Int]] = []
-        var row: [Int] = []
-        for (index, character) in flattenSudoku.enumerated() {
-            if let number = Int(String(character)) {
-                row.append(number)
-                if (index + 1) % 9 == 0 {
-                    result.append(row)
-                    row.removeAll()
-                } // if ここまで
-            } // if let ここまで
-        } // for ここまで
-        return result
-    } // create2DSudoku ここまで
 } // SudokuListView
 
 
