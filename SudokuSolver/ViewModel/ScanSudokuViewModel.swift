@@ -31,8 +31,8 @@ final class ScanSudokuViewModel {
         return image
     } // getImageInsideFrame ここまで
     
-    @MainActor
     // PhotosPickerItemをUIImageに変換
+    @MainActor
     func getUIImage() async {
         if let selectedPhoto {
             do {
