@@ -22,6 +22,7 @@
 		4A9C37552B9D64E400EC5439 /* DragAndPinchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C37542B9D64E400EC5439 /* DragAndPinchImage.swift */; };
 		4A9C37592B9D896900EC5439 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C37582B9D896900EC5439 /* UIViewExtension.swift */; };
 		4A9C375B2B9DB87800EC5439 /* ImagePreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C375A2B9DB87700EC5439 /* ImagePreprocessor.swift */; };
+		4A9C37652B9F36DD00EC5439 /* MNISTClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C37642B9F36DD00EC5439 /* MNISTClassifier.mlmodel */; };
 		4AB912672B975DE90093D7B2 /* SudokuSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB912662B975DE90093D7B2 /* SudokuSolver.swift */; };
 		4AF7B91E2B9490FF007619EA /* MainBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF7B91D2B9490FF007619EA /* MainBoardViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		4A9C37542B9D64E400EC5439 /* DragAndPinchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndPinchImage.swift; sourceTree = "<group>"; };
 		4A9C37582B9D896900EC5439 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		4A9C375A2B9DB87700EC5439 /* ImagePreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreprocessor.swift; sourceTree = "<group>"; };
+		4A9C37642B9F36DD00EC5439 /* MNISTClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MNISTClassifier.mlmodel; sourceTree = "<group>"; };
 		4AB912662B975DE90093D7B2 /* SudokuSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolver.swift; sourceTree = "<group>"; };
 		4AF7B91D2B9490FF007619EA /* MainBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +87,7 @@
 		4A7227692B92E238009E8C28 = {
 			isa = PBXGroup;
 			children = (
+				4A9C37642B9F36DD00EC5439 /* MNISTClassifier.mlmodel */,
 				4A7227742B92E238009E8C28 /* SudokuSolver */,
 				4A7227732B92E238009E8C28 /* Products */,
 			);
@@ -237,6 +240,7 @@
 				4A9C37552B9D64E400EC5439 /* DragAndPinchImage.swift in Sources */,
 				4A7227822B92E23B009E8C28 /* SudokuSolver.xcdatamodeld in Sources */,
 				4A3BA9612B94269C00A9A5A6 /* ScanSudokuView.swift in Sources */,
+				4A9C37652B9F36DD00EC5439 /* MNISTClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
