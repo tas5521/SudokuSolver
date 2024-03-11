@@ -21,6 +21,7 @@
 		4A9C374F2B9CB2E800EC5439 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C374E2B9CB2E800EC5439 /* ImagePickerView.swift */; };
 		4A9C37552B9D64E400EC5439 /* DragAndPinchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C37542B9D64E400EC5439 /* DragAndPinchImage.swift */; };
 		4A9C37592B9D896900EC5439 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C37582B9D896900EC5439 /* UIViewExtension.swift */; };
+		4A9C375B2B9DB87800EC5439 /* ImagePreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C375A2B9DB87700EC5439 /* ImagePreprocessor.swift */; };
 		4AB912672B975DE90093D7B2 /* SudokuSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB912662B975DE90093D7B2 /* SudokuSolver.swift */; };
 		4AF7B91E2B9490FF007619EA /* MainBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF7B91D2B9490FF007619EA /* MainBoardViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		4A9C374E2B9CB2E800EC5439 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		4A9C37542B9D64E400EC5439 /* DragAndPinchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndPinchImage.swift; sourceTree = "<group>"; };
 		4A9C37582B9D896900EC5439 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		4A9C375A2B9DB87700EC5439 /* ImagePreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreprocessor.swift; sourceTree = "<group>"; };
 		4AB912662B975DE90093D7B2 /* SudokuSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolver.swift; sourceTree = "<group>"; };
 		4AF7B91D2B9490FF007619EA /* MainBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +63,7 @@
 			children = (
 				4A3BA95A2B934BCB00A9A5A6 /* ButtonType.swift */,
 				4AB912662B975DE90093D7B2 /* SudokuSolver.swift */,
+				4A9C375A2B9DB87700EC5439 /* ImagePreprocessor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				4A9C374F2B9CB2E800EC5439 /* ImagePickerView.swift in Sources */,
 				4AB912672B975DE90093D7B2 /* SudokuSolver.swift in Sources */,
 				4A72277F2B92E23B009E8C28 /* Persistence.swift in Sources */,
+				4A9C375B2B9DB87800EC5439 /* ImagePreprocessor.swift in Sources */,
 				4A3BA9592B93427900A9A5A6 /* MainBoardView.swift in Sources */,
 				4AF7B91E2B9490FF007619EA /* MainBoardViewModel.swift in Sources */,
 				4A7227762B92E238009E8C28 /* SudokuSolverApp.swift in Sources */,

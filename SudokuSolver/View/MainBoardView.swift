@@ -14,7 +14,6 @@ struct MainBoardView: View {
     @State private var isShowList: Bool = false
     // 数独を保存したことを伝えるメッセージの表示を管理すつ変数
     @State private var isShowSaveMessage: Bool = false
-    
     // ViewModel
     @State private var viewModel: MainBoardViewModel = MainBoardViewModel()
     
