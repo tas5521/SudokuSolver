@@ -31,7 +31,7 @@ struct MainBoardView: View {
                         // カメラ画面の画面遷移
                         NavigationLink {
                             // 数独スキャン画面へ遷移
-                            ScanSudokuView()
+                            ScanSudokuView(mainBoardViewModel: $viewModel)
                         } label: {
                             Image(systemName: "camera.fill")
                                 .foregroundStyle(Color.buttonBlue)
