@@ -54,7 +54,7 @@ final class DigitRecognizer {
     /// 画像の各ピクセルデータの標準偏差を計算
     /// 標準偏差が小さければ（0に近ければ）、文字が入力されていないことになる。
     /// MNISTClassifierでの数字認識では、何も数字が書いていない時に1が出力されてしまうため、画像の各ピクセルデータの標準偏差から、
-    /// 画像に数字が書いてあるされているかどうかを判断する。
+    /// 画像に数字が書いてあるかどうかを判断する。
     static private func isThereDigit(in ciImage: CIImage) -> Bool {
         // CIImageをCGImageに変換
         // Core Graphicsの機能を使用すれば、ピクセルデータに簡単にアクセスできる
