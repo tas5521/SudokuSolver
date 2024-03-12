@@ -69,6 +69,8 @@ struct ScanSudokuView: View {
             } // onChange ここまで
             // 数独読み込みボタン
             Button {
+                // 読み込む前に、現在の盤面を記録
+                mainBoardViewModel.pushSudokuIntoStack()
                 // 数独を読み込み
                 mainBoardViewModel.sudoku = viewModel.loadSudoku()
                 // 画面を閉じる
