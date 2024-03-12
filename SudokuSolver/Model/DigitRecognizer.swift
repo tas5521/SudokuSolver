@@ -99,5 +99,5 @@ final class DigitRecognizer {
             // 数字なし
             return false
         } // if ここまで
-    } // calculateContrast ここまで
+    } // isThereDigit ここまで
 } // DigitRecognizer ここまで
