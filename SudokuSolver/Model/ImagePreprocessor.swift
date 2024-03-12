@@ -92,8 +92,6 @@ final class ImagePreprocessor {
             // 画像の幅と高さを取得
             let width = cgImage.width
             let height = cgImage.height
-            //
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
             // CGContextを生成
             guard let context = CGContext(
                 // ピクセルデータのメモリへのポインタ ここでは使用しない
@@ -105,24 +103,22 @@ final class ImagePreprocessor {
                 // 画像の各色成分ごとのビット数。通常は8ビット（1バイト）。
                 bitsPerComponent: 8,
                 // 画像の各行のバイト数。
-                // ここでは width に4を掛けた値を使用。
-                // 1ピクセルあたりの色成分数はRGBAの4つで、各色成分は8ビット（1バイト）で表現されるため、width（行のピクセル数）に4バイトをかける
-                bytesPerRow: width * 4,
-                // 画像の色空間を示すCGColorSpaceオブジェクト。ここではデバイスのRGB色空間が使用されている。
-                space: colorSpace,
+                // 1ピクセルあたりの色成分数は1つであり、各色成分は8ビット（1バイト）
+                bytesPerRow: width,
+                // 画像の色空間を示すCGColorSpaceオブジェクト。ここではグレースケールの色空間を使用。
+                space: CGColorSpaceCreateDeviceGray(),
                 // 画像のビットマップの特性を示す値。
                 // CGImageAlphaInfo.noneSkipLast.rawValue は、アルファチャンネルを持たず、ピクセルの並び順が逆転していることを示している。
-                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
-            ) else { return UIImage() }
+                bitmapInfo: CGImageAlphaInfo.none.rawValue) else { return UIImage() }
             // cgImageを描画
             context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
             // context.dataを使用して、ピクセルデータを取得
             if let buffer = context.data {
                 // bufferが指すメモリ領域をUInt8型のメモリとして解釈し、そのポインタをpixelBufferにバインドする
                 let pixelBuffer = buffer.bindMemory(to: UInt8.self, capacity: width * height * 4)
-                for number in 0..<(width * height * 4) {
+                for index in 0..<(width * height) {
                     // 白黒反転
-                    pixelBuffer[number] = 255 - pixelBuffer[number]
+                    pixelBuffer[index] = 255 - pixelBuffer[index]
                 } // for ここまで
                 // 画像を作成
                 if let invertedCGImage = context.makeImage() {
