@@ -9,14 +9,15 @@ import SwiftUI
 import PhotosUI
 
 struct ScanSudokuView: View {
+    // 画面を閉じるための環境変数
+    @Environment(\.dismiss) private var dismiss
+    // MainBoardViewModelのインスタンスをバインディングで取得
+    @Binding var mainBoardViewModel: MainBoardViewModel
     // ScanSudokuViewModelのインスタンス
     @State private var viewModel: ScanSudokuViewModel = ScanSudokuViewModel()
     // View Presentation
     // カメラの表示を管理する変数
     @State private var isShowCamera: Bool = false
-    
-    // 画像チェック用シートを管理する変数
-    @State private var isShowSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -68,9 +69,12 @@ struct ScanSudokuView: View {
             } // onChange ここまで
             // 数独読み込みボタン
             Button {
+                // 読み込む前に、現在の盤面を記録
+                mainBoardViewModel.pushSudokuIntoStack()
                 // 数独を読み込み
-                viewModel.loadSudoku()
-                isShowSheet.toggle()
+                mainBoardViewModel.sudoku = viewModel.loadSudoku()
+                // 画面を閉じる
+                dismiss()
             } label: {
                 Text("Load Sudoku")
                     .frame(maxWidth: .infinity)
@@ -81,14 +85,6 @@ struct ScanSudokuView: View {
             } // Button ここまで
             // 画像が読み込まれていないときはボタンを押せなくする
             .disabled(viewModel.image == nil)
-            // 画像確認用(後で消す)
-            .sheet(isPresented: $isShowSheet) {
-                List {
-                    ForEach(viewModel.images, id: \.self) { image in
-                        Image(uiImage: image)
-                    } // ForEach ここまで
-                } // List ここまで
-            } // sheet ここまで
         } // VStack ここまで
         .padding()
         // このViewが閉じたとき、プロパティを初期化
@@ -99,5 +95,5 @@ struct ScanSudokuView: View {
 } // ScanSudokuView ここまで
 
 #Preview {
-    ScanSudokuView()
+    ScanSudokuView(mainBoardViewModel: .constant(MainBoardViewModel()))
 }

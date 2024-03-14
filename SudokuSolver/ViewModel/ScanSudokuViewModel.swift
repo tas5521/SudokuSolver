@@ -16,8 +16,6 @@ final class ScanSudokuViewModel {
     var image: UIImage? = nil
     // フレームの座標とサイズの情報を保持する変数
     var frameRect: CGRect = .zero
-    // 各セルのImageを保持する配列
-    var images: [UIImage] = []
     
     // 枠内の画像を取得
     private var imageInsideFrame: UIImage {
@@ -46,9 +44,13 @@ final class ScanSudokuViewModel {
     } // getUIImage ここまで
     
     // 画像から数独を読み込むメソッド
-    func loadSudoku() {
+    func loadSudoku() -> [[Int]] {
         // 画像の前処理を実行
-        images = ImagePreprocessor.preprocess(image: imageInsideFrame)
+        let images = ImagePreprocessor.preprocess(image: imageInsideFrame)
+        // 文字認識の結果を取得
+        let digits = DigitRecognizer.recognizeDigits(in: images)
+        // 文字認識の結果を2Dの数独に変換し、返却
+        return Utility.create2DSudoku(from: digits)
     } // loadSudoku ここまで
     
     // プロパティの状態を初期値に戻すメソッド
@@ -56,6 +58,5 @@ final class ScanSudokuViewModel {
         selectedPhoto = nil
         image = nil
         frameRect = .zero
-        images.removeAll()
     } // initializeProperties ここまで
 } // ScanSudokuViewModel ここまで
