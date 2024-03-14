@@ -39,6 +39,7 @@ final class DigitRecognizer {
             // 画像に数字があるか判断
             if isThereDigit(in: ciImage) {
                 do {
+                    // ciImageを受け取り、指定されたリクエストを使用してその画像を解析し、結果を返す
                     try VNImageRequestHandler(ciImage: ciImage).perform([request])
                 } catch {
                     // エラーが出たら、デバッグエリアに表示
