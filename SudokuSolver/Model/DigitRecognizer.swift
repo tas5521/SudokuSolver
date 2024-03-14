@@ -92,8 +92,8 @@ final class DigitRecognizer {
         let averageBrightness = brightnesses.reduce(0, +) / pixelCount
         // 明るさの標準偏差
         let standardBrightness = sqrt(brightnesses.map({ pow( Double($0) - averageBrightness, 2.0) }).reduce(0, +) / pixelCount)
-        // 明るさの標準偏差が基準（0.01）より上だったら、数字があると判断
-        if standardBrightness > 0.01 {
+        // 明るさの標準偏差が基準（0.1）より上だったら、数字があると判断
+        if standardBrightness > 0.1 {
             // 数字あり
             return true
         } else {
