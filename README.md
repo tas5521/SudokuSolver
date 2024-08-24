@@ -25,8 +25,8 @@ MNISTClassifierのCore MLモデルは[こちら](https://developer.apple.com/jp/
 
 ### 数独の保存
 1. 「Save」ボタンを押すと、現在の盤面がリストに保存されます。<br>
-2. 「Clear All」ボタンで全ての数字を消すことができます。<br>
-3. 「List」ボタンで保存した数独を表示し、読み込むことができます。<br>
+（「Clear All」ボタンで全ての数字を消すことができます。）<br>
+2. 「List」ボタンで保存した数独を表示し、読み込むことができます。<br>
 <img width="250" src="ScreenShots/ScreenShot_3.gif"><br>
 
 ### ヒントの表示
