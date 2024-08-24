@@ -29,4 +29,4 @@
 数独を全て解くのではなくて、ある特定のマスだけヒントが欲しい時は、「Hint」ボタンが使えます。
 1. 「Hint」ボタンを押して、ヒントが欲しいマスをタップします。<br>タップされたマスはオレンジ色になります。<br>
 2. 「Solve」ボタンを押します。<br>適切に処理が完了すると、オレンジ色のマスのみ、解が表示されます。<br>
-<img width="250" src="ScreenShots/ScreenShot_3.gif"><br>
+<img width="250" src="ScreenShots/ScreenShot_4.gif"><br>
