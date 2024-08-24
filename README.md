@@ -11,6 +11,10 @@
 ### 写真から読み込む場合
 注意：写真からの読み込み機能は、開発中です。<br>
 現時点では、iPhone SEでしか正常に読み込みできません。<br>
+画像からの文字認識には、[Vision Framework](https://developer.apple.com/documentation/vision/)を使用しています。<br>
+機械学習モデルには、MNISTClassifierを用いています。<br>
+MNISTClassifierのCore MLモデルは[こちら](https://developer.apple.com/jp/machine-learning/models/)からダウンロードできます。<br>
+
 1. 右上のカメラボタンを押します。<br>
 2. 画面が変わったら、「Photo Library」ボタンを押します。<br>
 3. 解きたい数独の画像を選択します。<br>
